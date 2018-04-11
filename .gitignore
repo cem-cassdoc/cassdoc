@@ -10,4 +10,7 @@ build/**
 .idea/
 .idea/*
 .idea/**
-
+out
+out/*
+out/**
+out/
