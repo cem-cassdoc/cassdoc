@@ -1,0 +1,41 @@
+sourceSets {
+    integrationTest {
+        groovy.srcDir 'src/integrationTest/groovy'
+        resources.srcDir 'src/integrationTest/resources'
+    }
+}
+
+dependencies {
+    integrationTestCompile sourceSets.main.output
+    integrationTestCompile sourceSets.test.output
+
+    integrationTestCompile configurations.compile
+    integrationTestCompile configurations.testCompile
+
+    integrationTestRuntime configurations.runtime
+    integrationTestRuntime configurations.testRuntime
+}
+
+task integrationTest(type: Test) {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+    description = 'Runs integration tests.'
+
+    maxHeapSize = '1024m'
+
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    binResultsDir = file("$buildDir/integration-test-results/binary/integrationTest")
+
+    reports {
+        html.destination = "$buildDir/reports/integration-test"
+        junitXml.destination = "$buildDir/integration-test"
+    }
+
+    mustRunAfter tasks.test
+}
+check.dependsOn integrationTest
+
+codenarcIntegrationTest {
+    configFile rootProject.file('gradle/codenarc/codenarcTest.groovy')
+}

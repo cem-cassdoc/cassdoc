@@ -1,0 +1,168 @@
+buildscript {
+
+    repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		  }
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE"
+        classpath "net.saliman:gradle-cobertura-plugin:2.4.0"
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.4.17"
+        // classpath "com.sourcemuse.gradle.plugin:gradle-mongo-plugin:${gradleMongoPluginVersion}"
+    }
+}
+
+apply plugin: 'groovy'
+apply plugin: 'codenarc'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'net.saliman.cobertura'
+apply plugin: "com.gorylenko.gradle-git-properties"
+//apply plugin: 'mongo'
+
+apply from: "$rootDir/gradle/integrationTest.gradle"
+
+group = 'cassdoc'
+version = '0.5.0'
+sourceCompatibility = 1.8
+
+sourceSets {
+	main {
+		groovy {
+			srcDir 'src-cassdoc/main/groovy'
+			srcDir 'src-spring/main/groovy'
+			srcDir 'src-drv/main/groovy'
+			srcDir 'src-util/main/groovy'
+			//srcDir 'src-jcr/main/groovy'
+			//srcDir 'src-cassdoc-tinkerpop3/main/groovy'
+		}
+        resources {
+            srcDir 'src-cassdoc/main/resources'
+            srcDir 'src-spring/main/resources'
+            srcDir 'src-drv/main/resources'
+            srcDir 'src-util/main/resources'
+        }
+	}
+    test {
+        groovy {
+            srcDir 'src-cassdoc/main/groovy'
+            srcDir 'src-spring/main/groovy'
+            srcDir 'src-drv/main/groovy'
+            srcDir 'src-util/main/groovy'
+
+            srcDir 'src-cassdoc/test/groovy'
+            srcDir 'src-spring/test/groovy'
+            srcDir 'src-drv/test/groovy'
+            srcDir 'src-util/test/groovy'
+        }
+        resources {
+            srcDir 'src-cassdoc/main/resources'
+            srcDir 'src-spring/main/resources'
+            srcDir 'src-drv/main/resources'
+            srcDir 'src-util/main/resources'
+
+            srcDir 'src-cassdoc/test/resources'
+            srcDir 'src-spring/test/resources'
+            srcDir 'src-drv/test/resources'
+            srcDir 'src-util/test/resources'
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+	
+	compile files("lib/cwdrg-lg.jar")
+	
+	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.11'
+	compile group: 'org.codehaus.gpars', name: 'gpars', version: '1.2.1'
+
+	compile group: 'com.google.guava', name: 'guava', version: '22.0'
+
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2.2'	
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'	
+    compile group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
+	compile group: 'commons-pool', name: 'commons-pool', version: '1.6'
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
+	compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+	compile group: 'commons-httpclient', name: 'commons-httpclient', version: '3.1'
+
+	compile group: 'com.eaio.uuid', name: 'uuid', version: '3.2'
+	// netty??? metrics-core?? snappy? lz4?
+	
+	compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.10'
+	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.10'	
+	
+	compile group: 'org.springframework', name: 'spring-web', version: '4.3.8.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-configuration-processor', version: '1.5.3.RELEASE'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '1.5.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '1.5.3.RELEASE'
+	compile group: 'com.ryantenney.metrics', name: 'metrics-spring', version: '3.1.3'
+	//compile group: 'org.zalando', name: 'problem-spring-web', version: '0.19.0'
+	//compile "org.springframework.boot:spring-boot-starter-data-mongodb:1.5.2.RELEASE"
+	//compile "org.springframework.boot:spring-boot-starter-mail:1.5.2.RELEASE"
+	//compile "io.springfox:springfox-swagger2:2.5.0"
+
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.8.1'
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.2.0'
+	compile group: 'com.opencsv', name: 'opencsv', version: '3.9'	
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.10'	
+
+    compile group: 'com.datastax.cassandra', name: 'cassandra-driver-core', version: '3.2.0'
+
+    testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.5'
+    testCompile group: 'org.objenesis', name: 'objenesis', version: '2.5.1'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+    testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4'
+    testCompile group: 'org.springframework', name: 'spring-test', version: '4.3.8.RELEASE'
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.3.RELEASE'
+
+    testCompile group: 'io.netty', name: 'netty-all', version: '4.0.44.Final'
+    testCompile group: 'org.cassandraunit', name: 'cassandra-unit', version: '3.1.3.2'
+    //testCompile group: 'org.cassandraunit', name: 'cassandra-unit-spring', version: '3.1.3.2'
+
+    //testCompile group: 'org.slf4j', name: 'slf4j-testapi', version: '1.7.25'
+
+    codenarc group: 'org.codenarc', name: 'CodeNarc', version: '0.27.0'
+}
+
+cobertura {
+    coverageFormats = ['xml', 'html']
+}
+
+codenarc {
+    configFile rootProject.file('gradle/codenarc/codenarc.groovy')
+}
+
+codenarcTest {
+    configFile rootProject.file('gradle/codenarc/codenarcTest.groovy')
+}
+
+jar {
+    archiveName = 'cassdoc.jar'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
+
+springBoot {
+    buildInfo()
+}
+
+bootRun {
+    doFirst {
+        // allows you to specify profiles with `gradle bootRun -Pprofiles=profileOne,profileTwo
+        String profilesVal = project.hasProperty('profiles') ? profiles : 'dev'
+        systemProperty "spring.profiles.active", profilesVal
+    }
+}

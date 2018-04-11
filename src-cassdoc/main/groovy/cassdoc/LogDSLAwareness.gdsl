@@ -1,0 +1,7 @@
+package cassdoc
+
+contributor(context()) {
+    //if (classType?.hasAnnotation("cwdrg.lg.annotation.Log")) {
+        property name: "log", type: "cwdrg.lg.Lg", isStatic: true
+    //}
+}

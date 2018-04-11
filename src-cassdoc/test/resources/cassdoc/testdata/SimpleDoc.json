@@ -1,0 +1,10 @@
+{
+  "_id":"PROD",
+  "hello":"world",
+  "arrVal":["pirate","matey","arrrr"],
+  "iVal":53,
+  "fVal":3.00065,
+  "nullVal":null,
+  "mapVal":{"keyA":"ValA","KEYB":"ValB"},
+  "$%^&*@#(&*#$(){}[]--09*(*()62347813420<>,.,<~`/?":"Evil Key"
+}

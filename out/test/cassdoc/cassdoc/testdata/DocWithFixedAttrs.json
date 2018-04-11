@@ -1,0 +1,15 @@
+{
+  "_id":"PROD",
+  "hello":"world",
+  "arrVal":["pirate","matey","arrrr"],
+  "iVal":53,
+  "fVal":3.00065,
+  "nullVal":null,
+  "mapVal":{"keyA":"ValA","KEYB":"ValB"},
+  "$%^&*@#(&*#$(){}[]--09*(*()62347813420<>,.,<~`/?":"Evil Key",
+  "dbpedia:SKU":"8898988898",
+  "sku":"-------",
+  "dbpedia:GTIN":"90008AABCD999",
+  "gtin":"notagtin",
+  "product:submitdate":1472242302964
+}
