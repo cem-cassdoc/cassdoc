@@ -1,0 +1,13 @@
+bin
+bin/
+bin/*
+bin/**
+build
+build/
+build/*
+build/**
+.idea
+.idea/
+.idea/*
+.idea/**
+
